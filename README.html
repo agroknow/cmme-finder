@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/c63cc39" />
+<meta charset="UTF-8" />
+<title>README</title>
+<meta name="generator" content="iA Writer for Mac 1.5.1 (5593)" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+</head>
+<body>
+<h1>Abstract Finder</h1>
+<p>This is the implementation of an abstract finder which consumes the API that is served from Agro-Know over an elasticsearch repository. The same logic (with variations based on specific requirements) is followed from all our finders using AngularJS</p>
+<hr />
+<h1>Main Purpose</h1>
+<p>of this finder-app is to have an open-source, lightweight, cross-platform solution for searching our data pools, and that is easy to embodied in every web site. It's implemented using HTML, CSS and Javascript.</p>
+<hr />
+<h1>Technologies</h1>
+<ol>
+<li>
+<p><strong>AngularJS</strong></p>
+</li>
+<li>
+<p><strong>Native AngularJS (Angular) directives for Twitter's Bootstrap.</strong> Small footprint (5kB gzipped!), NO 3rd party JS dependencies (jQuery, bootstrap JS) required!</p>
+</li>
+<li>
+<p><strong>LESS CSS</strong></p>
+</li>
+</ol>
+<hr />
+<h3>Features</h3>
+<ul>
+<li>Multiple formats can be added ( for now AKIF, AGRIF are implemented )</li>
+<li>Different type of facets per page, with different mapping</li>
+<li>Canned Queries</li>
+<li>Pagination : "Loading more" with "Scroll to top", or normal pagination.</li>
+<li>Responsiveness &amp; mobile friendliness</li>
+<li>Routing</li>
+</ul>
+<hr />
+<h1>Documentation.</h1>
+<p>AngularJS is an open-source JavaScript framework, maintained by Google, that assists with running single-page applications. Its goal is to augment web-based applications with model-view-controller (MVC) capability, in an effort to make both development and testing easier.</p>
+<p><strong>_ Note: See 'docs' folder for specific documentation of controllers and app_</strong></p>
+<h2>Single Page App Logic</h2>
+<p>Everything happens inside a single .html page. <strong>index.html</strong> is our main page. <code>ng-app</code> directive defines which app will manage the specific block. We have "akListing" module which is defined in /app/app.js file. Everything we have built is under this module.</p>
+<p>The #akListing div is controlled by <em>mainController.js</em> ( ng-controller="mainController.js" ). Inside #akListing we have a div with <code>ng-view</code> directive. This is used in combination with ngRoute(in app.js) in order to render inside this div the specific html-template given by route.</p>
+<h2>Routing</h2>
+<p>As explained before everything is rendered inside the div with ng-view directive. All templates are in <em>/templates</em> and the mapping is in <code>app.js</code> under <code>listing.config(['$routeProvider',function()])</code>. So, for example we have in our page <code>&lt;a href="#/educational/search/?q=food protection"&gt;</code>, which will call the <code>when('/educational/search/:search_param'</code> case and will render <code>templates/akif_edu_search.html</code> inside the <code>ng-view</code> changing the url to <code>...doc_location/#/educational/search/?q=food%20protection</code>.</p>
+<h2>App Structure</h2>
+<p><code>/app/</code> folder contains app.js in which are defined the modules and the services we use.</p>
+<p><code>/app/controllers/</code> contains all the controllers we use.</p>
+<p>..*<code>mainController.js</code> manages the app. Thus it contains for finder initialisation, search submission, reset search, sanitisation, truncate e.t.c and functions that are generally used.</p>
+<p>..*<code>search/</code> contains the controllers for listing page ( facetsController.js, listingController.js, paginationController.js )</p>
+<p>..*<code>view_item/</code> contains the viewItemController.js who manages the view item page.</p>
+<h2>Configurations</h2>
+<p>In order to configure the finder we have two different options.</p>
+<h3><strong>Configure finder from config/conf.json</strong></h3>
+<p>This file contains the configurations for the finder. It's read in mainController and set all the variables we need to have in our finder. In case there is an error in reading the configuration file the same variables are defined inside the .error promise. <em>Warning</em>: be careful in case there are defined specific configuration in mainController (see the next(2) option)</p>
+<p>Available configurations in conf.json</p>
+<ul>
+<li>
+<p><strong>baseUrl</strong> : the base url of the API (it ends at /search-api/v1 )</p>
+</li>
+<li>
+<p><strong>enableFacets</strong>: defines if we have the facets enabled or not</p>
+</li>
+<li>
+<p><strong>enablePaginationBottom</strong>: true/false enables the bottom pagination</p>
+</li>
+<li>
+<p><strong>enablePaginationTop</strong>: true/false enables the top pagination</p>
+</li>
+<li>
+<p><strong>enableLoadMore</strong>:true/false enables the load more button. If it's enabled overwrites the pagination options and hides top-bottom pagination</p>
+</li>
+<li>
+<p><strong>facets</strong>: array that defines which facets we want to have in finder. i.e.["set","language","contexts","learningResourceTypes","endUserRoles"]</p>
+</li>
+<li>
+<p><strong>limitPagination</strong>: int that limits the pagination in case we have many results</p>
+</li>
+<li>
+<p><strong>limit<em>facets</em></strong><em>: _Object</em> of arrays that limits specific facets. For example if want to limit collections(set) just to 'aglrnedunhmc' we write { "set":["aglrnedunhmc"] }. If empty ({}) there is NO limitation.</p>
+</li>
+<li>
+<p><strong>limit<em>facets</em>number</strong>: int that limits the number of results in every facet. <em>This shouldn't be empty</em>. If you need to have a lot or results just use a very big number.</p>
+</li>
+<li>
+<p><strong>mappings<em>file</em></strong><em>: the file of the facets mappings between human and machine words. i.e. "../config/facets</em>mappings.json". <em>If the finder supports translations</em> maybe we use different mapping file that is defined in mainController</p>
+</li>
+<li>
+<p><strong>maxTextLength</strong>: int that defines the length of the description in snippet.</p>
+</li>
+<li>
+<p><strong>pageSize</strong>: int that defines the page size (used in both simple pagination and load more functionality)</p>
+</li>
+<li>
+<p><strong>selectedLanguage</strong>: 2-letter code that defines the language that used in initialisation.</p>
+</li>
+<li>
+<p><strong>snippetElements</strong>: array with the elements that we want to show in snippet. i.e. ["title","description","keywords"] <em>If an element isn't defined in languageBlocks</em> block in jsons we need to added manually inside the getSnippet function of listingController.</p>
+</li>
+</ul>
+<h3><strong>Overwrite finder's configuration in mainController controller</strong></h3>
+<p>Note: this type of configuration is useful in case we need to have specific configuration for different types i.e. AKIF, AGRIF type or education, publication.</p>
+<p>This configuration is defined inside mainController in function init_finder() which initialise the finder. Here we have to parameters. The first is for type and the second is for schema. All the parameters that are defined above can be overwritten here giving the same functionality.</p>
+<h3>UI configuration</h3>
+<p>The target here is to have the ability to configure very easy a simple finder. What we need is a <em><strong>logo</strong></em> and a <em><strong>3-color-palette(hex)</strong></em> in order to setup very easy a finder that is clean and matches a pre-defined interface.</p>
+<p><strong>2 Steps we need</strong></p>
+<ul>
+<li>
+<p>create logo.png image with the logo we need, with dimensions 960*160 and replace the existed logo.png in assets/images/ folder.</p>
+</li>
+<li>
+<p>go to /css/style.less and change the value of the variables color<em>1, color</em>2, color_3.</p>
+</li>
+</ul>
+<hr />
+<h1>Usefull links</h1>
+<h2>Angular Directives</h2>
+<ul>
+<li>https://docs.angularjs.org/guide/directive</li>
+<li>https://docs.angularjs.org/api/ng/directive</li>
+<li>http://stackoverflow.com/questions/13875466/what-is-an-angularjs-directive</li>
+</ul>
+<h2>Angular Services, Providers, Factories</h2>
+<ul>
+<li>http://stackoverflow.com/questions/15666048/angular-js-service-vs-provider-vs-factory</li>
+</ul>
+<h2>Native AngularJS directives for Twitter's Bootstrap</h2>
+<ul>
+<li>http://angular-ui.github.io/bootstrap/</li>
+</ul>
+<h2>LESS CSS</h2>
+<ul>
+<li>http://lesscss.org/features/</li>
+</ul>
+</body>
+</html>

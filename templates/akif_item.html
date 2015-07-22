@@ -1,0 +1,48 @@
+<a href="#/" > Home Page</a> <a href="javascript:history.back();" > | Back to search </a>
+
+<!-- VIEW ITEM -->
+<hr>
+<div id="view_item" ng-controller="viewItemController" ng-init="getItem()">
+
+
+<form ng-submit="submit('educational')" class="form-wrapper cf" >
+    <input ng-model="search_query" name="search_query" type="text" placeholder="Search here..." >
+    <button type="submit">Search</button>
+</form>
+
+	<article id="main_content" class="col-md-12 ">
+            <h3 id="itemTitle">{{item_title}}</h3>
+        <ul>
+			 <li><span class="labels">Description : </span> <br>
+			 	{{item_description[0]}}
+			 	<br>{{item_description[1]}}
+			 	<br>{{item_description[2]}}
+			 	</li>
+			 <li><span class="labels">Keywords : </span> <br>
+			 	<a ng-repeat="keys in item_keywords" href="#/educational/search/?q={{keys}}" >{{keys}}, </a>
+			 </li>
+			 <li><span class="labels">Classification : </span> <br>
+				 <a ng-repeat="keys in item_classification"  href="#/educational/search/?q={{keys}}" >{{keys}}, </a>
+			 </li>
+		 </ul>
+
+		<a href="{{item_resource_url}}" class="btn btn-sm btn-default" target=_blank >Access the resource</a>
+        <button class="btn btn-sm btn-default"  ng-click="isCollapsed = !isCollapsed">More Info</button>
+
+		<div collapse="!isCollapsed">
+			<h4 id="more_info">More Info</h4>
+			 <ul>
+				 <li><span class="labels">Organization: </span> {{item_organization}} </li>
+				 <li><span class="labels">Language: </span> {{item_language}} </li>
+				 <li><span class="labels">Location: </span> {{item_coverage}}</li>
+				 <li><span class="labels">Learning Resource Types: </span> <span ng-repeat="types in item_resource_types"> {{types}}, </span></li>
+				 <li><span class="labels">Key Audience: </span> <span ng-repeat="roles in item_roles"> {{roles}}, </span></li>
+				 <li><span class="labels">Context: </span> <span ng-repeat="context in item_context"> {{context}}, </span></li>
+				 <!-- <li><span class="labels">Age Range: </span> {{item_age_range}}</li> -->
+			 </ul>
+		</div>
+	</article>
+
+</article>
+</div>
+</div>

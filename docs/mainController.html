@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>mainController.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>mainController.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*
+* @author Mathioudakis Theodore
+* Agro-Know Technologies - 2013
+*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="define-maincontroller-controller-in-app-">Define mainController controller in ‘app’</h2>
+<p>services required $rootScope, $scope, $http, $routeParams, $location, sharedProperties</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>listing.controller(<span class="hljs-string">"mainController"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($rootScope, $scope, $http, $routeParams, $location, sharedProperties)</span>{</span>
+
+	$scope.conf_file = <span class="hljs-string">'config/conf.json'</span>;
+	$scope.lang_path = <span class="hljs-string">'config/lang/'</span>;
+
+	<span class="hljs-keyword">var</span> mappings_file = <span class="hljs-string">'config/facets_mappings.json'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>variable to show and hide elements in ui</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.show_hide = [];
+	$scope.show_hide[<span class="hljs-literal">true</span>]=<span class="hljs-string">"hide"</span>;
+	$scope.show_hide[<span class="hljs-literal">false</span>]=<span class="hljs-string">"show"</span>;
+
+	$rootScope.currentPage = <span class="hljs-number">1</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>get properties from conf.json</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$http.get($scope.conf_file)
+	.success(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>FINDER SETTINGS FROM CONFIG FILE</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-comment">/* $scope.limit_facets = data.limit_facets; */</span>
+		$scope.api_path = data.baseUrl;
+		$scope.enablePaginationTop = data.enablePaginationTop;
+		$scope.enablePaginationBottom = data.enablePaginationBottom;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <ul>
+<li>IF “LOAD MORE” is enabled &gt; PAGINATION auto-disabled</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span>(data.enableLoadMore == <span class="hljs-literal">true</span>) {
+			$scope.enablePaginationTop = <span class="hljs-literal">false</span>;
+			$scope.enablePaginationBottom = <span class="hljs-literal">false</span>;
+			$scope.enableLoadMore = data.enableLoadMore;
+		}
+
+
+		$scope.limitPagination = data.limitPagination;
+		$scope.pageSize = data.pageSize;
+		<span class="hljs-comment">/*$scope.selectedLanguage = data.selectedLanguage; */</span>
+		$scope.enableFacets = data.enableFacets;
+		 $scope.facets = data.facets;
+		 $scope.limit_facets = data.limit_facets;
+		<span class="hljs-comment">/* $scope.snippetElements = data.snippetElements; */</span>
+		$scope.maxTextLength = data.maxTextLength;
+		$scope.limit_facets_number = data.limit_facets_number;
+		$scope.findElements(<span class="hljs-literal">true</span>);
+
+    })
+	.error(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span>{</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>DEFAULT FINDER SETTINGS in case of error in reading the conf.json
+API URL</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.api_path = <span class="hljs-string">'http://api.greenlearningnetwork.com/search-api/v1/'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>SCHEMA : AKIF of AGRIF</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.schema = <span class="hljs-string">'akif'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>PAGINATION</p>
+<ul>
+<li>Enables top pagination : true/false</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.enablePaginationTop = <span class="hljs-literal">true</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <ul>
+<li>Enables bottom pagination : true/false</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.enablePaginationBottom = <span class="hljs-literal">true</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <ul>
+<li>Enable Load More</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.enableLoadMore = <span class="hljs-literal">false</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <ul>
+<li>Limit Number of Pages in Pagination</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.limitPagination = <span class="hljs-number">10</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <ul>
+<li>Page Size defines the number of results per page</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.pageSize = <span class="hljs-number">15</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <ul>
+<li>Selected Language</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.selectedLanguage=<span class="hljs-string">'en'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>FACETS</p>
+<ul>
+<li>Enables the facets : true/false</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.enableFacets = <span class="hljs-literal">true</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <ul>
+<li>Defines which facets we want to add</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.facets = [<span class="hljs-string">'set'</span>,<span class="hljs-string">'language'</span>,<span class="hljs-string">'contexts'</span>];
+		$scope.limit_facets = {}; <span class="hljs-comment">//{"set":["oeintute","prodinraagro"], "language":["en","fr"]}; // limit facets</span>
+		$scope.limit_facets_number = <span class="hljs-number">10</span>; <span class="hljs-comment">// limits the number of the facets in facets list</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>SNIPPETS</p>
+<ul>
+<li>Components inside snippet</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$scope.snippetElements = [<span class="hljs-string">'title'</span>,<span class="hljs-string">'description'</span>];
+		$scope.maxTextLength = <span class="hljs-number">500</span>;
+
+	});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>VARIOUS VARIABLES in the scope</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <ul>
+<li>this is the variable that created in the search box.
+at Initialization searches ‘*’ see:listingController &gt; if(init)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$rootScope.query = <span class="hljs-string">""</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <ul>
+<li>Holds the results each time</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.results = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <ul>
+<li>Holds the pages for pagination</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.pages = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <ul>
+<li>Inactive facets</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.inactiveFacets = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <ul>
+<li>Active facets</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.activeFacets = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <ul>
+<li>Total results</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.total = <span class="hljs-number">0</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <ul>
+<li>Mappings</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.mapping = {};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>FUNCTIONS
+@function <code>init_finder(schema, facets_type)</code> : Initialize Finder</p>
+<ul>
+<li>@param schema {string} : defines the schema of the finder - options: ‘akif’, ‘agrif’</li>
+<li>@param facets_type {string} : defines what facets we want in every case</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.init_finder = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(schema, facets_type)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>When defining the facet_type we want to use, we also can limit everyone of these facets and define a specific mapping file for facets.
+For now we have ‘training’, ‘educational’, ‘publications’.
+We can easily add more just by adding a new case in the following switch, and also add other options related to facets_type</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">switch</span>(facets_type) {
+			<span class="hljs-keyword">case</span> <span class="hljs-string">'educational'</span> :</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>$scope.facets = [‘language’,’learningResourceTypes’,’contexts’,’endUserRoles’]; /<em> ‘set’ </em>/
+$scope.limit_facets = {“set”:[“aglrnedunhmc”]};</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>				mappings_file = <span class="hljs-string">'config/educational_facets_mappings.json'</span>;
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">default</span>:
+			    $scope.facets = [<span class="hljs-string">'set'</span>,<span class="hljs-string">'language'</span>,<span class="hljs-string">'contexts'</span>];
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>In every schema we define the specific elements we want to have in the snippets.
+Here can be added more schemas and also other options related to it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">switch</span>(schema) {
+			<span class="hljs-keyword">case</span> <span class="hljs-string">'akif'</span> :
+				$scope.snippetElements = [ <span class="hljs-string">"title"</span>, <span class="hljs-string">"description"</span>, <span class="hljs-string">"keywords"</span> ]
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">default</span>:
+			    $scope.facets = [<span class="hljs-string">'set'</span>,<span class="hljs-string">'language'</span>,<span class="hljs-string">'contexts'</span>];
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Check for selected schema. If nothing is selected we use as default the ‘akif’.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span>( schema!=<span class="hljs-string">'akif'</span> &amp;&amp; schema!=<span class="hljs-string">'agrif'</span>) {
+			$scope.schema = <span class="hljs-string">'akif'</span>;
+		} <span class="hljs-keyword">else</span> {
+			$scope.schema = schema;
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>store the mapping for human reading languages</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$http.get(mappings_file).success(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+		        <span class="hljs-keyword">for</span>(i <span class="hljs-keyword">in</span> data) { <span class="hljs-comment">// i = providers, languages, etc...</span>
+					$scope.mapping[i] = [];
+		        	<span class="hljs-keyword">for</span>(j <span class="hljs-keyword">in</span> data[i]) {
+		        		$scope.mapping[i][data[i][j].machine] = data[i][j].human;
+		        	}
+		        }
+		    });
+
+
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>@function <code>init_language()</code> : Initialize Language for UI</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.init_language = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+		$rootScope.languages = {};
+		$scope.selectedLanguage = <span class="hljs-string">'en'</span>;
+		$scope.lang_file = $scope.selectedLanguage+<span class="hljs-string">'.json'</span>;
+
+		<span class="hljs-comment">/*-----------------------------------get languages for UI-----------------------------------*/</span>
+		$http.get($scope.lang_path+$scope.lang_file)
+		.success(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+			$rootScope.languages = data;
+		})
+		.error(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span>{</span>
+			console.log(err);
+		});
+
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>@function <code>submit(type)</code>: query submission</p>
+<ul>
+<li>@param type : ‘educational’, ‘publications’, ‘training’<pre><code>       different types leads to different paths <span class="hljs-keyword">in</span> Routing
+</code></pre></li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.submit = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type)</span> {</span>
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.search_query) {
+		  $rootScope.query = <span class="hljs-string">"q="</span> + <span class="hljs-keyword">this</span>.search_query;
+		  $routeParams.q = <span class="hljs-keyword">this</span>.search_query;
+
+		  <span class="hljs-keyword">if</span>(type){ $location.path( type+<span class="hljs-string">'/search/'</span> ); } <span class="hljs-comment">/* different routing paths. see app.js &gt; routing */</span>
+		  $location.search(<span class="hljs-string">'q'</span>,<span class="hljs-keyword">this</span>.search_query);
+
+		  <span class="hljs-keyword">this</span>.search_query = <span class="hljs-string">''</span>;
+
+		  $rootScope.currentPage = <span class="hljs-number">1</span>;
+
+		  $scope.findElements(<span class="hljs-literal">false</span>);
+
+		}
+		<span class="hljs-keyword">else</span>{
+			 alert(<span class="hljs-string">'Type something to search!!'</span>);
+		}
+
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>@function <code>update()</code> : function for general update</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.update = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+		$scope.total = sharedProperties.getTotal();
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>@function <code>resetLocation()</code> : function for cleaning up the location</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.resetLocation = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>console.log(“—reset—“);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">for</span>(i <span class="hljs-keyword">in</span> $scope.facets) {
+			$location.search($scope.facets[i],<span class="hljs-literal">null</span>);
+		}
+
+		$rootScope.query = <span class="hljs-string">""</span>;
+		$location.search(<span class="hljs-string">'q'</span>,<span class="hljs-literal">null</span>);
+		$scope.activeFacets = [];
+		$scope.findElements(<span class="hljs-literal">true</span>);
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>@function change_language() : function for changing lang</p>
+<ul>
+<li>@param: lang code xx (must be the same with the language file in config/lang/xx.json)</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.change_language = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(lang)</span> {</span>
+		$scope.selectedLanguage = lang;
+
+		$http.get($scope.lang_path+lang+<span class="hljs-string">'.json'</span>)
+		.success(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+			$rootScope.languages = data;
+			<span class="hljs-keyword">if</span>( $location.$$url.indexOf(<span class="hljs-string">'search'</span>) &gt; -<span class="hljs-number">1</span> ) $scope.findElements(<span class="hljs-literal">true</span>);
+			<span class="hljs-keyword">if</span>( $location.$$url.indexOf(<span class="hljs-string">'item'</span>) &gt; -<span class="hljs-number">1</span>  ) $scope.getItem();
+		})
+		.error(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err)</span>{</span>
+			console.log(err);
+		});
+
+
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>@function sanitize() : function for line break removal</p>
+<ul>
+<li>@param text {string}: text to sanitize</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.sanitize = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(text)</span> {</span>
+		text = text.replace(<span class="hljs-regexp">/(\r\n|\n|\r)/gm</span>,<span class="hljs-string">" "</span>);
+		<span class="hljs-keyword">return</span> text;
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>@function truncate() : function for truncate long texts (i.e. description in listing)</p>
+<ul>
+<li>@param text {string}: text to sanitize</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.truncate = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str, maxLength, suffix)</span> {</span>
+	    <span class="hljs-keyword">if</span>(str.length &gt; maxLength) {
+	        str = str.substring(<span class="hljs-number">0</span>, maxLength + <span class="hljs-number">1</span>);
+	        str = str.substring(<span class="hljs-number">0</span>, <span class="hljs-built_in">Math</span>.min(str.length, str.lastIndexOf(<span class="hljs-string">" "</span>)));
+	        str = str + suffix;
+	    }
+	    <span class="hljs-keyword">return</span> str;
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>@function scrollToTop() : function for scrolling to top of the page
+helpful when we have infinite vertical scroll</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$scope.scrollToTop = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">var</span> element = document.body;
+		<span class="hljs-keyword">var</span> to = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">var</span> duration = <span class="hljs-number">550</span>;
+
+	    <span class="hljs-keyword">var</span> start = element.scrollTop,
+	        change = to - start,
+	        currentTime = <span class="hljs-number">0</span>,
+	        increment = <span class="hljs-number">20</span>;
+
+	    <span class="hljs-keyword">var</span> animateScroll = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+	        currentTime += increment;
+	        <span class="hljs-keyword">var</span> val = <span class="hljs-built_in">Math</span>.easeInOutQuad(currentTime, start, change, duration);
+	        element.scrollTop = val;
+	        <span class="hljs-keyword">if</span>(currentTime &lt; duration) {
+	            setTimeout(animateScroll, increment);
+	        }
+	    };
+	    animateScroll();
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>add function in Math for use it with scrollToTop</p>
+<ul>
+<li>@function easeInOutQuad(t, b, c, d)</li>
+<li>@param t = current time</li>
+<li>@param b = start value</li>
+<li>@param c = change in value</li>
+<li>@param d = duration</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-built_in">Math</span>.easeInOutQuad = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(t, b, c, d)</span> {</span>
+			t /= d/<span class="hljs-number">2</span>;
+			<span class="hljs-keyword">if</span> (t &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> c/<span class="hljs-number">2</span>*t*t + b;
+			t--;
+			<span class="hljs-keyword">return</span> -c/<span class="hljs-number">2</span> * (t*(t-<span class="hljs-number">2</span>) - <span class="hljs-number">1</span>) + b;
+		};
+
+
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

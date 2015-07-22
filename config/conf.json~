@@ -1,0 +1,29 @@
+{
+  "baseUrl": "http://83.212.122.220:8080/ecloud/api/ariadne/restp?json={\"clause\": [{\"language\": \"VSQL\",\"expression\": \"@@@@\"}],  \"resultInfo\": \"display\",\"resultListOffset\": 0,\"resultListSize\": 12,\"idListOffset\": 0,\"uiLanguage\": \"en\",\"facets\": [\"provider\",\"language\",\"contentType\",\"date\"],\"idListSize\": 12,\"resultFormat\": \"json\",\"resultSortkey\": \"\"}&engine=InMemory&callback=JSON_CALLBACK",
+  "enableFacets": true,
+  "enablePaginationBottom": true,
+  "enablePaginationTop": true,
+  "enableLoadMore":true,
+  "facets": [
+    "provider",
+    "contentType",
+    "language",
+    "date"
+  ],
+  "limitPagination": 10,
+  "limit_facets": {
+  },
+  "limit_facets_number": 100,
+  "mappings_file": "../config/facets_mappings.json",
+  "maxTextLength": 300,
+  "pageSize": 10,
+  "selectedLanguage": "en",
+  "snippetElements": [
+    "title",
+    "id",
+    "description",
+    "keywords",
+    "language",
+    "tokenBlock.learningResourceTypes"
+  ]
+}

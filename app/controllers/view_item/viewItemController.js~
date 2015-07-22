@@ -1,0 +1,109 @@
+/*
+* @author Mathioudakis Theodore
+* Agro-Know Technologies - 2013
+*
+*/
+
+//Define viewItemController controller in 'app'
+//---
+listing.controller("viewItemController", function($rootScope, $scope, $http, $location, $routeParams) {
+	//GENERAL
+	var language_mapping=[], audience_mapping=[];
+	language_mapping['en'] = "English";
+
+	/*AKIF URL*/
+	$scope.akif = 'http://api.greenlearningnetwork.com/search-api/v1/akif/';
+	/* $scope.item_resource_id = ''; */
+	$scope.item_resource_url = '';
+
+	//Elements default values
+	$scope.item_title = "No title available";
+	$scope.item_description = "No description available";
+
+	//FUNCTIONS
+
+	// function `getItem()`:
+	//- this functions runs on init, reads url parameters and make the specific call to our API
+	$rootScope.getItem = function() {
+		//we split the parameter from URL (i.e /item/35701_AGLRGFSP) and get the item id and the set
+		//var item_identifier = $location.href;		
+		var item_identifier = window.location.href.replace(window.location.href.split("id=")[0],"").replace("id=","").replace("http:%2F%2F","");
+		
+		var headers = {'Content-Type':'application/json','Accept':'application/json;charset=utf-8'};
+
+		//item_identifier = 'http://www.cemuz.sk/Login.do?loginMethod=FREEAUTH&username=guest&followPath=/PersistentObjectAction.do?id=19302776';
+		//var item_query = "http://83.212.122.220:8080/ecloud/api/ariadne/restp?json=%7B%22clause%22%3A%20%5B%7B%22language%22%3A%20%22VSQL%22%2C%20%22expression%22%3A%20%22"+decodeURI(item_identifier)+"%22%7D%5D%2C%20%22resultInfo%22%3A%20%22display%22%2C%20%22resultListOffset%22%3A%200%2C%20%22resultListSize%22%3A%206%2C%20%22idListOffset%22%3A%200%2C%20%22uiLanguage%22%3A%20%22en%22%2C%20%22facets%22%3A%20%5B%22provider%22%2C%20%22language%22%2C%20%22format%22%2C%20%22classification%22%5D%2C%20%22idListSize%22%3A%206%2C%20%22resultFormat%22%3A%20%22json%22%2C%20%22resultSortkey%22%3A%20%22%22%7D&engine=InMemory&callback=JSON_CALLBACK";
+		
+		var query_language = "VSQL";
+		var expression = item_identifier;
+		//var expression = decodeURIComponent(item_identifier).replace("&","&amp;");
+		var resultInfo = "display";
+		var resultListOffset = 0;
+		var resultListSize = 1;
+		var idListOffset = 0;
+		var uiLanguage = "en";
+		var facets = '["provider", "language", "format", "classification"]';	
+		var idListSize = 1;
+		var resultFormat = "json"
+		var resultSortKey = "";
+		collections= "";
+
+		var item_query = $scope.api_path+'?json={\"clause\": [{\"language\": \"'+query_language+'\",\"expression\": \"'+expression+'\"}'+collections+'], \"resultInfo\": \"display\",\"resultListOffset\": '+resultListOffset+',\"resultListSize\": '+resultListSize+',\"idListOffset\": 0,\"uiLanguage\": \"'+uiLanguage+'\",\"facets\": '+facets+',\"idListSize\": '+idListSize+',\"resultFormat\": \"'+resultFormat+'\",\"resultSortkey\": \"'+resultSortKey+'\"}&engine=InMemory&callback=JSON_CALLBACK';
+			
+		//var item_query = 'http://83.212.122.220:8080/ecloud/api/ariadne/restp?json={"clause": [{"language": "VSQL", "expression": "'+item_identifier+'"}], "resultInfo": "display", "resultListOffset": 0, "resultListSize": 6, "idListOffset": 0, "uiLanguage": "en", "facets": ["provider", "language", "format", "classification"], "idListSize": 6, "resultFormat": "json", "resultSortkey": ""}&engine=InMemory&callback=JSON_CALLBACK';
+		$http.jsonp(item_query).success(function(data) {
+			//parse array and create a JS Object Array
+			//every item is a JSON
+			console.log(data.result.metadata[0]);
+			var thisJson = data.result.metadata[0];
+			$scope.item_contributor = [];
+			$scope.item_type = [];
+			
+			$scope.item_title = thisJson.title[0].value;
+
+			var description = thisJson.description;
+			if (typeof(thisJson.description) === "object") {
+				for(var obj in description) {
+				    if (description.hasOwnProperty(obj)) {
+					$scope.item_description+= description[obj]+". ";
+				    }
+				}
+				$scope.item_description = $scope.item_description.replace("No description available", "");
+			}
+			else {
+				var div = document.createElement("div");
+				div.innerHTML = thisJson.description;
+				$scope.item_description = (div.textContent || div.innerText || "").replace("<html>","").replace("</html>","").replace("<body>","").replace("</body>","").replace("<head>","").replace("</head>","").replace("<br>","");
+			}
+
+			$scope.item_organization = thisJson.dataProvider;
+			if (typeof(thisJson.id) === "object") {
+				var url = thisJson.id;
+				for(var obj in url) {
+				    if (url.hasOwnProperty(obj)) {
+					$scope.item_resource_url = url[obj];
+				    }
+				}
+			}
+			else {
+				$scope.item_resource_url = thisJson.id;
+			}
+			$scope.item_language = thisJson.language;
+			$scope.item_coverage = thisJson.spatial;
+			$scope.item_date = thisJson.created;
+			$scope.item_creator = thisJson.creator;
+			$scope.item_contributor = thisJson.contributor;
+			$scope.item_rights = thisJson.licenseUri;
+			if (thisJson.subject != undefined) {
+				$scope.item_subject = thisJson.subject.subject_0;
+			}
+			$scope.item_type = thisJson.type;
+			$scope.item_eu_url = thisJson.contextUri;
+			$scope.item_content_type = thisJson.contentType;
+		})
+
+	};
+
+});
+
+

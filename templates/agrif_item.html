@@ -1,0 +1,42 @@
+<a href="#/" > Home Page</a> <a href="javascript:history.back();" > | Back to search </a>
+
+<!-- VIEW ITEM -->
+<hr>
+<div id="view_item" ng-controller="agris-viewItemController" ng-init="getItem()">
+<form class="form-wrapper cf" ng-submit="submit('publications')">
+    <input ng-model="search_query" name="search_query" placeholder="Search here..." >
+    <button type="submit">Search</button>
+</form>
+
+	<article id="main_content" class="col-sm-12 col-xs-12 col-md-12">
+            <h3 id="itemTitle">{{item_title}}</h3>
+        <ul>
+			 <li><span class="labels">Abstract : </span> <br> {{item_abstract}}</li>
+			 <li><span class="labels">Citation : </span> <br> {{item_citation}} </li>
+			 <li><span class="labels">Language : </span> <br> {{item_language}}</li>
+			 <li><span class="labels">Keywords : </span> <br>
+			 	<a ng-repeat="keys in item_keywords" href="#/publications/search/?q={{keys}}" >{{keys}}, </a>
+			 </li>
+		 </ul>
+
+		<a href="{{item_resource_url}}" class="btn btn-sm btn-default" target=_blank >Access the resource</a>
+        <button class="btn btn-sm btn-default"  ng-click="isCollapsed = !isCollapsed">More Info</button>
+
+		<div collapse="!isCollapsed">
+			<h4 id="more_info">More Info</h4>
+			 <ul>
+				 <li><span class="labels">Creator: </span> <br> {{item_creators}} </li>
+				 <li><span class="labels">Classification: </span> <br>
+				 	<span ng-repeat="class in item_classification ">{{classif_mapping[class]}}, </span>
+				 </li>
+				 <li><span class="labels">Pages: </span> <br> {{item_pages}} </li>
+			 </ul>
+		</div>
+	</article>
+
+
+</article>
+</div>
+</div>
+
+

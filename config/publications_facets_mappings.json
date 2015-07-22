@@ -1,0 +1,678 @@
+{
+  "contexts": [
+    {
+      "human": "Education",
+      "machine": "education"
+    },
+    {
+      "human": "Higher",
+      "machine": "higher"
+    },
+    {
+      "human": "Compulsory",
+      "machine": "compulsory"
+    },
+    {
+      "human": "Distance",
+      "machine": "distance"
+    },
+    {
+      "human": "Vocational",
+      "machine": "vocational"
+    },
+    {
+      "human": "Professional",
+      "machine": "professional"
+    },
+    {
+      "human": "Development",
+      "machine": "development"
+    },
+    {
+      "human": "Continuing",
+      "machine": "continuing"
+    },
+    {
+      "human": "Policy",
+      "machine": "policy"
+    },
+    {
+      "human": "Making",
+      "machine": "making"
+    },
+    {
+      "human": "Library",
+      "machine": "library"
+    }
+  ],
+  "facets": [
+    {
+      "human": "Sets",
+      "machine": "set"
+    },
+    {
+      "human": "Languages",
+      "machine": "language"
+    },
+    {
+      "human": "Contexts",
+      "machine": "contexts"
+    },
+    {
+      "human": "Organizations",
+      "machine": "organization"
+    },
+    {
+      "human": "Coverage",
+      "machine": "languageBlocks.en.coverage"
+    },
+    {
+      "human": "Key Audience",
+      "machine": "endUserRoles"
+    },
+    {
+      "human": "Resource Type",
+      "machine": "learningResourceTypes"
+    },
+    {
+      "human": "Journal",
+      "machine": "expressions.citation.title"
+    },
+    {
+      "human": "Publishing Date",
+      "machine": "publisher.date"
+    },
+    {
+      "human": "Type",
+      "machine": "controlled.type"
+    },
+    {
+      "human": "Classification",
+      "machine": "controlled.classification.CCL"
+    }
+  ],
+  "language": [
+    {
+      "human": "Other",
+      "machine": "n/a"
+    },
+    {
+      "human": "Welsh",
+      "machine": "cy"
+    },
+    {
+      "human": "Danish",
+      "machine": "da"
+    },
+    {
+      "human": "Japanese",
+      "machine": "ja"
+    },
+    {
+      "human": "Taiwan",
+      "machine": "tw"
+    },
+    {
+      "human": "Croatian",
+      "machine": "hr"
+    },
+    {
+      "human": "Other",
+      "machine": "none"
+    },
+    {
+      "human": "English",
+      "machine": "en"
+    },
+    {
+      "human": "English",
+      "machine": "eng;"
+    },
+    {
+      "human": "English",
+      "machine": "eng"
+    },
+    {
+      "human": "Dutch",
+      "machine": "nl"
+    },
+    {
+      "human": "Norwegian",
+      "machine": "no"
+    },
+    {
+      "human": "Danish",
+      "machine": "da"
+    },
+    {
+      "human": "Slovak",
+      "machine": "sk"
+    },
+    {
+      "human": "Czech",
+      "machine": "cs"
+    },
+    {
+      "human": "French",
+      "machine": "fr"
+    },
+    {
+      "human": "French",
+      "machine": "fre"
+    },
+    {
+      "human": "Hungarian",
+      "machine": "hun"
+    },
+    {
+      "human": "Hungarian",
+      "machine": "hu"
+    },
+    {
+      "human": "Estonian",
+      "machine": "et"
+    },
+    {
+      "human": "Estonian",
+      "machine": "est"
+    },
+    {
+      "human": "Dutch",
+      "machine": "nl"
+    },
+    {
+      "human": "Romanian",
+      "machine": "ro"
+    },
+    {
+      "human": "German",
+      "machine": "de"
+    },
+    {
+      "human": "Chinese",
+      "machine": "cn"
+    },
+    {
+      "human": "German",
+      "machine": "deu"
+    },
+    {
+      "human": "Turkish",
+      "machine": "tr"
+    },
+    {
+      "human": "Portuguese",
+      "machine": "pt"
+    },
+    {
+      "human": "Portuguese",
+      "machine": "por"
+    },
+    {
+      "human": "Spanish",
+      "machine": "es"
+    },
+    {
+      "human": "Swedish",
+      "machine": "sv"
+    },
+    {
+      "human": "Greek",
+      "machine": "ell"
+    },
+    {
+      "human": "Greek",
+      "machine": "el"
+    },
+    {
+      "human": "Latin",
+      "machine": "lat"
+    },
+    {
+      "human": "Russian",
+      "machine": "rus"
+    },
+    {
+      "human": "Oriya",
+      "machine": "ori"
+    },
+    {
+      "human": "Hindi",
+      "machine": "hin"
+    },
+    {
+      "human": "Santhali",
+      "machine": "sat"
+    },
+    {
+      "human": "Mundari",
+      "machine": "unr"
+    },
+    {
+      "human": "Sadri",
+      "machine": "sck"
+    },
+    {
+      "human": "Ho",
+      "machine": "hok"
+    },
+    {
+      "human": "Bengali",
+      "machine": "ben"
+    },
+    {
+      "human": "Kannada",
+      "machine": "kan"
+    },
+    {
+      "human": "Neemadi",
+      "machine": "noe"
+    },
+    {
+      "human": "Santhali",
+      "machine": "sat"
+    },
+    {
+      "human": "Gondi",
+      "machine": "gon"
+    },
+    {
+      "human": "Narsinghpuria",
+      "machine": "bns"
+    },
+    {
+      "human": "Bhili",
+      "machine": "bhb"
+    },
+    {
+      "human": "Malvi",
+      "machine": "mup"
+    },
+    {
+      "human": "Maithili",
+      "machine": "mai"
+    },
+    {
+      "human": "Bhojpuri",
+      "machine": "bho"
+    },
+    {
+      "human": "Telugu",
+      "machine": "tel"
+    },
+    {
+      "human": "Oromifa",
+      "machine": "gaz"
+    },
+    {
+      "human": "Twi",
+      "machine": "twi"
+    },
+    {
+      "human": "Arabic",
+      "machine": "ar"
+    },
+    {
+      "human": "Russian",
+      "machine": "ru"
+    },
+    {
+      "human": "Chinese",
+      "machine": "zh"
+    },
+    {
+      "human": "Spanish",
+      "machine": "es"
+    },
+    {
+      "human": "Finnish",
+      "machine": "fi"
+    }
+  ],
+"controlled.classification.CCL":[
+ {"machine":"a8","human":"Study and Research of Marxism, Leninism, Maoism & Deng Xiaoping Theory"}
+,{"machine":"b1","human":"Philosophy (Worldwide)"}
+,{"machine":"b8","human":"Cognitive science"}
+,{"machine":"c9","human":"Sociology"}
+,{"machine":"d0","human":"Political theory"}
+,{"machine":"d2","human":"Communist Party of China"}
+,{"machine":"d4","human":"Labor, Peasant, Youth, Female Organizations and Movements"}
+,{"machine":"d5","human":"Politics (worldwide)"}
+,{"machine":"d6","human":"Politics in China"}
+,{"machine":"d7","human":"Politics in individual Countries"}
+,{"machine":"d8","human":"Diplomacy, International relations"}
+,{"machine":"d9","human":"Law"}
+,{"machine":"e2","human":"Military in China"}
+,{"machine":"e9","human":"Military Technology"}
+,{"machine":"f0","human":"Economics"}
+,{"machine":"f1","human":"Economics, Economic history and Economic geography of individual countries"}
+,{"machine":"f2","human":"Economic Planning and Management"}
+,{"machine":"f3","human":"Agricultural Economics"}
+,{"machine":"f4","human":"Industrial Economics"}
+,{"machine":"f5","human":"Economics of Transport"}
+,{"machine":"f6","human":"Economics of Postal and Cable Services"}
+,{"machine":"f7","human":"Economics of Commerce"}
+,{"machine":"f8","human":"Finance, Banking"}
+,{"machine":"g0","human":"Philosophy of Culture"}
+,{"machine":"g1","human":"Culture"}
+,{"machine":"g2","human":"Knowledge transmission"}
+,{"machine":"g3","human":"Science, Scientific Research"}
+,{"machine":"g4","human":"Education"}
+,{"machine":"g5","human":"Education in individual Countries"}
+,{"machine":"g6","human":"Education (Primary, Secondary, Tertiary)"}
+,{"machine":"g6","human":"Education (Primary, Secondary, Tertiary)"}
+,{"machine":"g7","human":"Education (specialized)"}
+,{"machine":"g8","human":"Sports"}
+,{"machine":"h0","human":"Linguistics"}
+,{"machine":"h1","human":"Chinese language"}
+,{"machine":"h3","human":"English language"}
+,{"machine":"h3","human":"Japanese language"}
+,{"machine":"i0","human":"Literary Theory"}
+,{"machine":"i2","human":"Literature in China"}
+,{"machine":"j4","human":"Photography"}
+,{"machine":"j9","human":"Cinematography, Television"}
+,{"machine":"k0","human":"Historical Theory"}
+,{"machine":"k2","human":"History of China"}
+,{"machine":"k8","human":"Biography, Archaeology"}
+,{"machine":"k9","human":"Geography"}
+,{"machine":"n0","human":"Theory and Methodology"}
+,{"machine":"n9","human":"Minor Sciences"}
+,{"machine":"o1","human":"Mathematics"}
+,{"machine":"o2","human":"Applied Mathematics"}
+,{"machine":"o3","human":"Mechanics"}
+,{"machine":"o4","human":"Physics"}
+,{"machine":"o5","human":"CLC-O5"}
+,{"machine":"o6","human":"Chemistry"}
+,{"machine":"p2","human":"Traditional Chinese Medicine"}
+,{"machine":"p3","human":"Human anatomy, Physiology, Pathology, Microbiology, Parasitology"}
+,{"machine":"p4","human":"Clinical Medicine"}
+,{"machine":"p5","human":"Internal medicine"}
+,{"machine":"p6","human":"Surgery"}
+,{"machine":"p7","human":"Pediatrics"}
+,{"machine":"p9","human":"Pharmacology, Pharmacy"}
+,{"machine":"q","human":"Life Science"}
+,{"machine":"q2","human":"Cytology"}
+,{"machine":"q3","human":"Genetics"}
+,{"machine":"q4","human":"Physiology"}
+,{"machine":"q5","human":"Biochemistry"}
+,{"machine":"q6","human":"Biophysics"}
+,{"machine":"q7","human":"Molecular Biology"}
+,{"machine":"q8","human":"Bioengineering"}
+,{"machine":"q9","human":"Zoology and Botany"}
+,{"machine":"r-","human":"Medicine and Health Sciences"}
+,{"machine":"r1","human":"Preventive Medicine, Public health"}
+,{"machine":"r2","human":"Traditional Chinese Medicine"}
+,{"machine":"r3","human":"Human anatomy, Physiology, Pathology, Microbiology, Parasitology"}
+,{"machine":"r-","human":"Medicine and Health Sciences"}
+,{"machine":"r4","human":"Clinical Medicine"}
+,{"machine":"r5","human":"Internal medicine"}
+,{"machine":"r6","human":"Surgery"}
+,{"machine":"r7","human":"Medical Specialties"}
+,{"machine":"r8","human":"Radiology, Sport medicine, Diving medicine, Aerospace medicine"}
+,{"machine":"r9","human":"Pharmacology, Pharmacy"}
+,{"machine":"s-","human":"Agricultural Science"}
+,{"machine":"s1","human":"Fundamental Agricultural Science"}
+,{"machine":"s2","human":"Agricultural Engineering"}
+,{"machine":"s3","human":"Agronomy"}
+,{"machine":"s4","human":"Phytopathology"}
+,{"machine":"s5","human":"Individual Crops"}
+,{"machine":"s6","human":"Horticulture"}
+,{"machine":"s7","human":"Forestry"}
+,{"machine":"s8","human":"Animal Husbandry, Veterinary medicine, Hunting, Sericulture, Apiculture"}
+,{"machine":"s9","human":"Aquaculture, Fishery"}
+,{"machine":"tb","human":"General Industrial Technology"}
+,{"machine":"td","human":"Mining Engineering"}
+,{"machine":"te","human":"Petroleum, Natural Gas"}
+,{"machine":"tg","human":"Metallurgy, Metalworking"}
+,{"machine":"th","human":"Metallurgy, Metalworking"}
+,{"machine":"tk","human":"Power Plant"}
+,{"machine":"tl","human":"Nuclear technology"}
+,{"machine":"tm","human":"Electrical Engineering"}
+,{"machine":"tn","human":"Electronic Engineering, Telecommunication Engineering"}
+,{"machine":"tp","human":"Automation, Computer Engineering"}
+,{"machine":"tq","human":"Chemical Engineering"}
+,{"machine":"ts","human":"Light Industry, Handicraft"}
+,{"machine":"tu","human":"Construction Engineering"}
+,{"machine":"tv","human":"Water Resources, Hydraulic Engineering"}
+,{"machine":"u1","human":"General Transport"}
+,{"machine":"u2","human":"Railway Transport"}
+,{"machine":"u4","human":"Highway Transport"}
+,{"machine":"u6","human":"Marine Transport"}
+,{"machine":"v2","human":"Aviation"}
+,{"machine":"v4","human":"Aerospace (Spaceflight)"}
+,{"machine":"x-","human":"Environmental Science"}
+,{"machine":"x1","human":"Fundamental Environmental Science"}
+,{"machine":"x2","human":"Environmental Research"}
+,{"machine":"x3","human":"Environmental Protection and Management"}
+,{"machine":"x4","human":"Disaster Protection"}
+,{"machine":"x5","human":"Pollution Control"}
+,{"machine":"x","human":"Environmental Science"}
+,{"machine":"x7","human":"Waste Management and Recycling"}
+,{"machine":"x8","human":"Environmental Quality Monitoring"}
+,{"machine":"x8","human":"Environmental Quality Monitoring"}
+,{"machine":"x9","human":"Occupational safety and health"}
+],
+  "set": [
+    {
+      "human": "Green OER",
+      "machine": "greenoer"
+    },
+    {
+      "human": "Digital Green",
+      "machine": "digitalgreen"
+    },
+    {
+      "human": "OER Africa",
+      "machine": "oerafrica"
+    },
+    {
+      "human": "SERCMICRO",
+      "machine": "sercmicro"
+    },
+    {
+      "human": "FAO capacity portal",
+      "machine": "faocapacityportal"
+    },
+    {
+      "human": "Traglor",
+      "machine": "traglor"
+    },
+    {
+      "human": "NSDL Beyond",
+      "machine": "nsdlbeyond"
+    },
+    {
+      "human": "Educational National Europe",
+      "machine": "edunhmc"
+    },
+    {
+      "human": "Encyclopedia of Life",
+      "machine": "aglreol"
+    },
+    {
+      "human": "Natural Bridge",
+      "machine": "aglrnb"
+    },
+    {
+      "human": "CGIAR",
+      "machine": "cgiar"
+    },
+    {
+      "human": "RuForum",
+      "machine": "ruforum"
+    },
+    {
+      "human": "Global Forum on Agricultural Research",
+      "machine": "gfar"
+    },
+    {
+      "human": "Great School Gardens",
+      "machine": "aglrgsg"
+    },
+    {
+      "human": "Access Agricultural",
+      "machine": "access"
+    },
+    {
+      "human": "Life Lab",
+      "machine": "aglrllb"
+    },
+    {
+      "human": "Rural Inclusion",
+      "machine": "rurinc"
+    },
+    {
+      "human": "AIMS",
+      "machine": "aglraims"
+    },
+    {
+      "human": "Slow Food",
+      "machine": "aglrslowfood"
+    },
+    {
+      "human": "AGROASIS/NOVA",
+      "machine": "oeagroasis"
+    },
+    {
+      "human": "ENOAT",
+      "machine": "oeenoat"
+    },
+    {
+      "human": "BioAgro",
+      "machine": "oebioagro"
+    },
+    {
+      "human": "Ecologica",
+      "machine": "oeecologiga"
+    },
+    {
+      "human": "Intute",
+      "machine": "oeintute"
+    },
+    {
+      "human": "AUA",
+      "machine": "oeaua"
+    },
+    {
+      "human": "EULS/Estonian",
+      "machine": "oeeulsesthonian"
+    },
+    {
+      "human": "BMLFUW/Austrian",
+      "machine": "oebmlfuwaustrian"
+    },
+    {
+      "human": "FAO",
+      "machine": "oefao"
+    },
+    {
+      "human": "Ellinogermaniki Agogi",
+      "machine": "oeellinogermaniki"
+    },
+    {
+      "human": "Organic e-prints",
+      "machine": "oeorganiceprints"
+    },
+    {
+      "human": "Spanish",
+      "machine": "oespanish"
+    },
+    {
+      "human": "MIKSIKE",
+      "machine": "oemiksike"
+    },
+    {
+      "human": "FAO Codex",
+      "machine": "aglrfaocdx"
+    },
+    {
+      "human": "Food Safety Knowledge Network",
+      "machine": "aglrfskn"
+    },
+    {
+      "human": "Food Safety OER",
+      "machine": "aglrfoodsafety"
+    },
+    {
+      "human": "FAO Right to Food",
+      "machine": "aglrfaorighttofood"
+    },
+    {
+      "human": "Agricom Job Profiles",
+      "machine": "aglragrjobs"
+    },
+    {
+      "human": "Agricom Competences",
+      "machine": "aglragricom"
+    },
+    {
+      "human": "ProdInra",
+      "machine": "prodinraagro"
+    },
+    {
+      "human": "Natural History Museum of Lisbon",
+      "machine": "edumnhn"
+    },
+    {
+      "human": "Estonian Natural History Museum",
+      "machine": "edutnhm"
+    },
+    {
+      "human": "Miksike collection",
+      "machine": "aglrmiksike"
+    },
+    {
+      "human": "Unesco Training Platform",
+      "machine": "optunesco"
+    },
+    {
+      "human": "Jura-Eichstatt Museum",
+      "machine": "edujura"
+    },
+    {
+      "human": "Bio@gro",
+      "machine": "oebiagro"
+    },
+    {
+      "human": "SEAE",
+      "machine": "aglrseae"
+    },
+    {
+      "human": "Arctic Centre",
+      "machine": "eduac"
+    },
+    {
+      "human": "FAO Capacity Development Portal",
+      "machine": "aglrfaocapacityportal"
+    },
+    {
+      "human": "FAO Good Practices",
+      "machine": "aglrfaogoodpractices"
+    },
+    {
+      "human": "FAO iMArk",
+      "machine": "aglrfaoimark"
+    },
+    {
+      "human": "FAO ERP Toolkit Primary & secondary edication",
+      "machine": "aglrfaoerptoolkitprimsec"
+    },
+    {
+      "human": "Hungarian Natural History Museum",
+      "machine": "eduhnhm"
+    },
+    {
+      "human": "FAO ERP Toolkit",
+      "machine": "aglrfaoerptoolkit"
+    },
+    {
+      "human": "OE Ecologica",
+      "machine": "oeecologica"
+    },
+    {
+      "human": "Agricom Jobs",
+      "machine": "agricomjobs"
+    }
+  ]
+}
+

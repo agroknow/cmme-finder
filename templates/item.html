@@ -1,0 +1,92 @@
+<!-- VIEW ITEM -->
+<hr>
+<div id="view_item" ng-controller="viewItemController" ng-init="getItem()">
+
+
+<form ng-submit="submit('educational')" class="form-wrapper cf" >
+    <input ng-model="search_query" name="search_query" type="text" placeholder="{{languages.search_here}}..." >
+    <button type="submit">
+			  <span class="glyphicon glyphicon-search"></span>&nbsp;
+			</button>
+</form><br/><br/>
+
+	<article id="main_content" class="col-xs-12 col-sm-12 col-md-12 ">
+        <a href="{{item_resource_url}}" target=_blank ><h3 id="itemTitle">{{item_title}}</h3></a><br/>
+        <div class="row"><div class="col-md-6">
+	<ul>
+			<li ng-show="item_description!=undefined"><span class="labels">{{languages.description || 'Description' }} : </span><br/> 
+				<span ng-show="typeOf(item_description)=='string'">{{item_description}}</span>
+				<span ng-show="typeOf(item_description)=='object'" ng-repeat="desc in item_description">{{desc}}<span ng-show="$index != keys(item_description).length-1">,<br/></span>
+						
+			</li><br/>
+			 <li ng-show="item_organization!=undefined"><span class="labels">{{languages.organization || 'Organization' }} : </span><br/> 
+				<span ng-show="typeOf(item_organization)=='string'">{{item_organization}}</span>
+				<span ng-show="typeOf(item_organization)=='object'" ng-repeat="org in item_organization">{{org}}<span ng-show="$index != keys(item_organization).length-1">, </span>
+						
+			</li><br/>
+			
+			 
+			<li ng-show="item_contributor!=undefined"><span class="labels">{{languages.contributor || 'Contributor' }}:  </span><br/> 
+				<span ng-show="typeOf(item_contributor)=='string'">{{item_contributor}}</span>
+				<span ng-show="typeOf(item_contributor)=='object'" ng-repeat="contributor in item_contributor">{{contributor}}<span ng-show="$index != keys(item_contributor).length-1">,<br/></span>
+						
+			</li><br/>
+			<li ng-show="item_creator!=undefined"><span class="labels">{{languages.creator || 'Creator' }}:  </span><br/> 
+				<span ng-show="typeOf(item_creator)=='string'">{{item_creator}}</span>
+				<span ng-show="typeOf(item_creator)=='object'" ng-repeat="creator in item_creator">{{creator}}<span ng-show="$index != keys(item_creator).length-1">,<br/></span>
+						
+			</li><br/>
+			<li ng-show="item_rights!=undefined"><span class="labels">{{languages.copyrights || 'Rights' }}:  </span><br/> 
+				<span ng-show="typeOf(item_rights)=='string'"><a href="{{item_rights}}" target=_blank >{{item_rights}}</a></span>
+				<span ng-show="typeOf(item_rights)=='object'" ng-repeat="rights in item_rights"><a href="{{item_rights}}" target=_blank >{{rights}}</a><span ng-show="$index != keys(item_rights).length-1">,<br/></span>
+						
+			</li><br/>
+			 </ul>
+	</div>
+	<div class="col-md-3"><ul>
+			<li ng-show="item_language!=undefined"><span class="labels">{{languages.language || 'Language' }}: </span><br/> 
+				<span ng-show="typeOf(item_language)=='string'">{{languages[item_language]}}</span>
+				<span ng-show="typeOf(item_language)=='object'" ng-repeat="lang in item_language">{{languages[lang]}}<span ng-show="$index != keys(item_language).length-1">, </span>
+						
+			</li><br/>
+			 <li ng-show="item_coverage!=undefined"><span class="labels">{{languages.location || 'Location' }}:  </span><br/> 
+				<span ng-show="typeOf(item_coverage)=='string'">{{item_coverage}}</span>
+				<span ng-show="typeOf(item_coverage)=='object'" ng-repeat="loc in item_coverage">{{loc}}<span ng-show="$index != keys(item_rights).length-1">,<br/></span>
+						
+			</li><br/>
+			<li ng-show="item_subject!=undefined" ><span class="labels">{{languages.subject || 'Subject' }}: </span><br/>{{item_subject}}</li><br/>
+			<li ng-show="item_type!=undefined"><span class="labels">{{languages.type || 'Type' }}: </span><br/> 
+				<span ng-show="typeOf(item_type)=='string'">{{item_type}}</span>
+				<span ng-show="typeOf(item_type)=='object'" ng-repeat="type in item_type">{{type}}<span ng-show="$index != keys(item_type).length-1">, </span>
+						
+			</li><br/>
+			<li ng-show="item_content_type!=undefined"><span class="labels">{{languages.content_type || 'Content Type' }}: </span><br/> 
+				<span ng-show="typeOf(item_type)=='string'">{{item_content_type}}</span>
+				<span ng-show="typeOf(item_type)=='object'" ng-repeat="type in item_content_type">{{type}}<span ng-show="$index != keys(item_content_type).length-1">, </span>
+						
+			</li><br/>
+		 </ul>
+	</div>
+	<div class="col-md-3"><div ng-show="item_icon != undefined" class="hidden-xs col-sm-3 col-md-3">
+
+			 <a href="{{item_resource_url}}" target=_blank ><img class="item_thumb" src="assets/images/{{item_icon}}"></a>
+		 </div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12" style="text-align: center;" >
+			<a href="{{item_resource_url}}" class="btn btn-default" target=_blank ><span class="glyphicon glyphicon-new-window"></span>&nbsp;{{languages.access_the_resource || 'Access the resource' }}</a><br/><br/>
+<a ng-hide="item_provider=='RISM'" href="{{item_eu_url}}" class="btn btn-default" target=_blank ><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{languages.view_the_resource || 'View in Europeana' }}</a>
+<a ng-show="item_provider=='RISM'" href="https://opac.rism.info/metaopac/search?View=rism&id={{item_eu_url}}" class="btn btn-default" target=_blank ><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{languages.view_the_resource || 'View in RISM' }}</a><br/><br/>
+<a href="http://doug.cs.kuleuven.be/ecloud/music21/process.php?id={{item_eu_id}}" class="btn btn-default" target=_blank ><span class="glyphicon glyphicon-music"></span>&nbsp;{{languages.view_the_resource || 'Open in Music21' }}</a>
+		<br/><br/><a href="#/" class="btn btn-default"><span class="glyphicon glyphicon-home"></span>&nbsp;{{languages.home}}</a> 
+		<br/><br/><a href="javascript:history.back();"  class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;{{languages.back_to_search}} </a></div></div>
+	</div>
+			
+			 
+
+		 
+
+	</article>
+
+</article>
+</div>
+</div>

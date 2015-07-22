@@ -1,0 +1,128 @@
+<div ng-controller="mainController" ng-init="init_finder('akif','educational')" >
+	<!--<a href="#/" >{{languages.home}}</a>-->
+	<form ng-submit="submit()" class="form-wrapper cf">
+		        <input ng-model="search_query" name="search_query" type="text" placeholder="{{languages.search_here}}..." >
+			<!--<button style="background-color:#d30102;" type="submit" href="javascript:;" ng-click="resetLocation()">{{languages.clear_search}}</button>-->
+			<button type="submit">
+			  <span class="glyphicon glyphicon-search"></span>&nbsp;
+			</button>
+			
+		    </form>
+
+	<!-- FACETS MOBILE -->
+	<div id="facets" class="col-xs-12 hidden-sm hidden-md hidden-lg" ng-show="enableFacets" ng-controller="facetsController">
+            	<!-- active facets -->
+            	<div class="facet_title">{{languages.available_facets}}</div>
+	              <div ng-repeat="facet in facets" style="float:left; margin:0 2px;">
+			          <a class="dropdown-toggle btn btn-default">
+					    {{ languages[ facet ] || facet}}
+					  </a>
+					  <ul class="dropdown-menu">
+					    <li ng-repeat="term in inactiveFacets[0][facet.toString()].terms | filter:facetFilter" style="float:left;">
+					      <a  class="child" href="javascript:;" ng-click="selectFacet(term.term, facet, term.count)" >
+		            		<span class="value">{{ languages[term.term] || term.term }}</span>
+						  </a>
+					    </li>
+					  </ul>
+		          </div>
+			</div>
+
+	<!-- FACETS > mobile (left sidebar)-->
+	<div class="hidden-xs col-sm-3 col-md-3">
+				<!-- <a ng-click="enableFacets=!enableFacets">Facets</a> -->
+	            <div id="facets" ng-controller="facetsController">
+
+            	<!-- active facets -->
+            	<!-- <div class="facet_title">{{languages.available_facets}}</div> -->
+				<!-- bootstrap -->
+	             <accordion >
+				    <accordion-group heading="{{ languages[ facet ] || facet }}" class="parent" ng-repeat="facet in facets">
+						<!-- 'facet' is the actual facet name and term.term is the machine name for the term -->
+		            	<a ng-repeat="(term,count) in inactiveFacets[0][facet.toString()] | filter:facetFilter" class="child" href="javascript:;" ng-click="selectFacet(term, facet, count)" >
+					
+		            		<span class="value">{{ languages[term] || term }}</span>
+		            		<span class="count">{{ count }}</span>
+		            	</a>
+				    </accordion-group>
+				  </accordion>
+
+				  <div><a class="btn btn-xs btn-danger" href="javascript:;" ng-click="resetLocation()">{{languages.clear_search}}</a></div>
+
+	            </div>
+			</div>
+
+	<!-- listing -->
+	<div id="listing_container" class="col-xs-12 col-sm-9 col-md-9">
+			<div id="active_facets" ng-show="enableFacets" ng-controller="facetsController">
+					 <!-- active facets -->
+		             <div ng-show="enableFacets" class="facets row">
+		            	<div class="facet_title" >{{languages.active_facets}}</div>
+		            	<div ng-repeat="links in activeFacets" style="padding-left:10px">
+		            		<a href="javascript:;" ng-click="deselectFacet(links)">{{languages[links.term] || links.term}} <span class="remove_facet"> x </span></a>
+	            		</div>
+		            </div>
+	            </div>
+
+			<h3 class="result_inform" >{{languages.search_for}} "<span class="active">{{query}}</span>" {{languages.returned_total}}: <span class="active">{{total}} {{languages.results}}</span></h3>
+
+			<!-- Top Pagination -->
+			<!--<div class="pagination hidden-xs" ng-controller="paginationController" ng-show="enablePaginationTop" ng-init="initPagination()" >
+		            <div class="center">
+			            <a href="#" class="prev btn btn-default" ng-click="goToPage(currentPage-1)"> Previous </a>
+			            	<p ng-repeat="link in pages" >
+				            	<a href="#" class="btn btn-default active_{{currentPage == link}}" ng-click="goToPage(link)" >{{link}}</a>
+				            </p>
+			            <a href="#" class="next btn btn-default" ng-click="goToPage(currentPage+1)"> Next </a>
+		            </div>
+	            </div>-->
+
+			<!-- listing -->
+			<div id="listing" ng-controller="listingController">
+				<ul class="results">
+
+					<!--<input ng-model="filterResults" placeholder="Filter results by title..." />
+					<b>Page '{{currentPage}}'</b> filtered with '<span class="active">{{filterResults}}</span>'</b> gives total: <b>{{filtered.length}} results</b>-->
+
+					<!-- loading and message above listing-->
+					<div style="min-height:10px;">
+						<progressbar ng-show="loading" class="progress-striped active" value="http_get_prog" type="success">{{languages.searching}}...</progressbar>
+					</div>
+					<alert type="danger" ng-show="error">
+						{{languages.error_message}}
+						Hmm... Something went wrong! Please try again later :)
+					</alert>
+
+					<!-- results -->
+					<li class="snippet" ng-repeat="result in filtered = (results | filter:filterResults) ">
+						<span class="title"><a href="#/item?id={{result.contextUri | escape}}">{{result.title}}</a></span>
+						<br> {{result.description}}
+						<!--<br> <b><span class="hidden-xs">{{languages.keywords || 'Keywords'}}: </span></b>
+							 <a ng-repeat="keys in result.keywords" href="#/educational/search/?q={{keys}}" >{{keys}}<span ng-show="$index != result.keywords.length-1">, </span></a>-->
+						<br ng-show="result.rights != undefined">
+							<b><span ng-show="result.rights != undefined" class="hidden-xs">{{languages.copyrights || 'Rights'}}: </span></b>
+						 	<a ng-show="result.rights != undefined" href="{{result.rights}}" target=_blank > {{result.rights}} </a>
+						<br>
+						 	<a class="col-md-2 btn btn-sm btn-default view_more" href="#/item?id={{result.contextUri | escape}}"> {{languages.view_more}} </a>
+					</li>
+
+				</ul>
+		</div>
+
+			<!-- LOAD MORE ITEMS -->
+			<div ng-controller="paginationController" style="text-align:center;">
+			<a class="btn btn-success btn-lg" href="javascript:;" ng-show="offset < total" ng-click="loadMore(currentPage+1)"><span class="glyphicon glyphicon-repeat"></span> {{languages.load_more}} </a>
+			<a class="btn btn-default btn-lg" href="javascript:;" ng-click="scrollToTop()"><span class="glyphicon glyphicon-chevron-up"></span> {{languages.back_to_top}}</a>
+		</div>
+
+			<!-- Bottom Pagination -->
+			<div class="pagination hidden-xs" ng-controller="paginationController" ng-show="enablePaginationBottom" ng-init="initPagination()" >
+		            <div class="center">
+			            <a href="#" class="prev btn btn-default" ng-click="goToPage(currentPage-1)"> Previous </a>
+			            	<p ng-repeat="link in pages" >
+				            	<a href="#" class="btn btn-default active_{{currentPage == link}}" ng-click="goToPage(link)" >{{link}}</a>
+				            </p>
+			            <a href="#" class="next btn btn-default" ng-click="goToPage(currentPage+1)"> Next </a>
+		            </div>
+	            </div>
+		</div>
+</div>

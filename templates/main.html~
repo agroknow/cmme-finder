@@ -1,0 +1,12 @@
+<div id="main_content">
+    <div class="">
+    </div>
+	<div class="col-xs-12 col-sm-12 col-md-12 search">
+	    <form ng-submit="submit('educational')" class="form-wrapper cf">
+		    <input ng-model="search_query" name="search_query" type="text" placeholder="{{languages.search_here}}..." >
+		    <button type="submit">{{languages.search}}</button>
+		</form>
+	</div>
+
+ </div>
+
